@@ -1,0 +1,5 @@
+{
+  "name": "Nexus: Multi-Agent Research Team",
+  "description": "An autonomous multi-agent system that researches topics, analyzes findings, and authors comprehensive blog posts using Google Gemini models.",
+  "requestFramePermissions": []
+}
