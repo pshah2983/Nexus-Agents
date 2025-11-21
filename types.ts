@@ -1,3 +1,4 @@
+
 export enum AgentStatus {
   IDLE = 'IDLE',
   WORKING = 'WORKING',
@@ -36,4 +37,27 @@ export interface WorkflowState {
   topic: string;
   isActive: boolean;
   agents: AgentState[];
+}
+
+export interface User {
+  email: string;
+  name: string;
+  isVerified: boolean;
+}
+
+export interface HistoryItem {
+  id: string;
+  timestamp: number;
+  topic: string;
+  blogContent: string;
+  agentOutputs: {
+    research: AgentOutput;
+    analysis: string;
+  };
+}
+
+export interface ChatMessage {
+  role: 'user' | 'model';
+  text: string;
+  timestamp: number;
 }

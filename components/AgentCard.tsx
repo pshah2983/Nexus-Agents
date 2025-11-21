@@ -94,16 +94,16 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
                <div className="text-xs text-slate-300 font-mono leading-relaxed">
                  <ReactMarkdown
                     components={{
-                        h1: ({node, ...props}) => <div className="font-bold text-cyan-200 mb-2 mt-3 text-sm border-b border-slate-800 pb-1" {...props} />,
-                        h2: ({node, ...props}) => <div className="font-bold text-cyan-200/90 mb-1 mt-2" {...props} />,
-                        h3: ({node, ...props}) => <div className="font-bold text-cyan-200/80 mb-1 mt-1" {...props} />,
+                        h1: ({node, ...props}) => <h1 className="font-bold text-cyan-200 mb-2 mt-3 text-sm border-b border-slate-800 pb-1" {...props} />,
+                        h2: ({node, ...props}) => <h2 className="font-bold text-cyan-200/90 mb-1 mt-2" {...props} />,
+                        h3: ({node, ...props}) => <h3 className="font-bold text-cyan-200/80 mb-1 mt-1" {...props} />,
                         p: ({node, ...props}) => <p className="mb-2" {...props} />,
                         ul: ({node, ...props}) => <ul className="list-disc list-inside mb-2 space-y-1" {...props} />,
                         ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-2 space-y-1" {...props} />,
                         li: ({node, ...props}) => <li className="ml-1 pl-1" {...props} />,
-                        a: ({node, ...props}) => <span className="text-cyan-500 underline" {...props} />, 
-                        strong: ({node, ...props}) => <span className="font-bold text-slate-200" {...props} />,
-                        blockquote: ({node, ...props}) => <div className="border-l-2 border-slate-700 pl-2 italic text-slate-500 my-2" {...props} />,
+                        a: ({node, ...props}) => <a className="text-cyan-500 underline" {...props} />, 
+                        strong: ({node, ...props}) => <strong className="font-bold text-slate-200" {...props} />,
+                        blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-slate-700 pl-2 italic text-slate-500 my-2" {...props} />,
                     }}
                  >
                    {agent.output.text}

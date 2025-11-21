@@ -1,8 +1,7 @@
-import { GoogleGenAI, Type } from "@google/genai";
-import { AgentRole, GroundingSource } from "../types";
 
-// Initialize the client
-// process.env.API_KEY is assumed to be available in the environment
+import { GoogleGenAI, Chat } from "@google/genai";
+import { GroundingSource } from "../types";
+
 const createClient = () => {
   const apiKey = process.env.API_KEY;
   if (!apiKey) {
@@ -16,7 +15,7 @@ export const runResearcherAgent = async (topic: string): Promise<{ text: string;
   
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash', // Using Flash for speed and tool capability
+      model: 'gemini-2.5-flash',
       contents: `Research the following topic in depth: "${topic}". 
       Focus on finding key facts, historical context, recent developments, and important figures. 
       Provide a comprehensive set of notes.`,
@@ -28,7 +27,6 @@ export const runResearcherAgent = async (topic: string): Promise<{ text: string;
 
     const text = response.text || "No information found.";
     
-    // Extract sources from grounding chunks
     const sources: GroundingSource[] = [];
     const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks;
     
@@ -43,9 +41,7 @@ export const runResearcherAgent = async (topic: string): Promise<{ text: string;
       });
     }
 
-    // Remove duplicates based on URI
     const uniqueSources = sources.filter((v, i, a) => a.findIndex(t => (t.uri === v.uri)) === i);
-
     return { text, sources: uniqueSources };
   } catch (error: any) {
     console.error("Researcher Agent Error:", error);
@@ -81,7 +77,7 @@ export const runWriterAgent = async (analysis: string, topic: string): Promise<s
   
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview', // Using Pro for better creative writing quality
+      model: 'gemini-3-pro-preview',
       contents: `Write a high-quality, engaging blog post about "${topic}" based on the following analysis brief. 
       The post should use Markdown formatting (headers, bullet points, bold text).
       
@@ -97,4 +93,27 @@ export const runWriterAgent = async (analysis: string, topic: string): Promise<s
     console.error("Writer Agent Error:", error);
     throw new Error(error.message || "Failed to write blog post.");
   }
+};
+
+export const createFollowUpChat = (topic: string, blogContent: string, researchNotes: string) => {
+  const ai = createClient();
+  
+  const chat: Chat = ai.chats.create({
+    model: 'gemini-2.5-flash',
+    config: {
+      systemInstruction: `You are a knowledgeable assistant helping a user with questions about a research report you just generated.
+      
+      Topic: ${topic}
+      
+      Here is the blog post you wrote:
+      ${blogContent}
+      
+      Here is the raw research data you used:
+      ${researchNotes}
+      
+      Answer the user's follow-up questions concisely and accurately based on this context.`,
+    },
+  });
+  
+  return chat;
 };
