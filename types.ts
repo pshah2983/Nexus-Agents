@@ -31,6 +31,7 @@ export interface AgentState {
   status: AgentStatus;
   output: AgentOutput | null;
   error?: string;
+  fromCache?: boolean;
 }
 
 export interface WorkflowState {
