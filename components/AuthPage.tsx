@@ -13,6 +13,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLoginSuccess }) => {
   const [verificationCode, setVerificationCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [info, setInfo] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,10 +39,8 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLoginSuccess }) => {
     setError('');
     try {
       await authService.register(email, name);
+      setInfo("Verification code sent to your email (Use: 1234 for demo).");
       setMode('verify');
-      // In a real app, we would trigger an email send here.
-      // For this demo, the code is hardcoded to '1234'.
-      alert("Verification code sent to your email (Use: 1234)");
     } catch (err: any) {
       setError(err.message || 'Registration failed');
     } finally {
@@ -86,6 +85,11 @@ const AuthPage: React.FC<AuthPageProps> = ({ onLoginSuccess }) => {
         {error && (
           <div className="mb-6 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm text-center">
             {error}
+          </div>
+        )}
+        {info && (
+          <div className="mb-6 p-3 bg-cyan-500/10 border border-cyan-500/50 rounded-lg text-cyan-300 text-sm text-center">
+            {info}
           </div>
         )}
 

@@ -77,7 +77,7 @@ export const runWriterAgent = async (analysis: string, topic: string): Promise<s
   
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview',
+      model: 'gemini-2.5-pro',
       contents: `Write a high-quality, engaging blog post about "${topic}" based on the following analysis brief. 
       The post should use Markdown formatting (headers, bullet points, bold text).
       

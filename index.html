@@ -19,9 +19,16 @@
                 450: '#00e5ff',
               }
             },
+            keyframes: {
+              'fade-in-up': {
+                '0%': { opacity: '0', transform: 'translateY(24px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            },
             animation: {
               'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
               'spin-slow': 'spin 3s linear infinite',
+              'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
             }
           },
         },
@@ -50,17 +57,7 @@
         background: #64748b;
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0"
-  }
-}
-</script>
+
 </head>
   <body>
     <div id="root"></div>
